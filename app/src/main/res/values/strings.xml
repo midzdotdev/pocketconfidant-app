@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">ChatTutorial</string>
+    <string name="button_l">Chats</string>
+    <string name="button_c">Profile</string>
+    <string name="button_r">Content</string>
+
+    <string-array name="contentTitles">
+        <item>First Video</item>
+        <item>Second Video</item>
+        <item>Third Video</item>
+        <item>Fourth Video</item>
+    </string-array>
+
+    <array name="contentPrices">
+        <item>Free</item>
+        <item>Free</item>
+        <item>Free</item>
+        <item>Free</item>
+    </array>
+
+    <string-array name="contentAbstracts">
+        <item>This is the first abstract which is very long. This is the first abstract which is very long. This is the first abstract which is very long. This is the first abstract which is very long. This is the first abstract which is very long. This is the first abstract which is very long. </item>
+        <item>This is the second abstract which is very long. This is the second abstract which is very long. This is the second abstract which is very long. This is the second abstract which is very long. This is the second abstract which is very long. This is the second abstract which is very long. </item>
+        <item>This is the third abstract which is very long. This is the third abstract which is very long. This is the third abstract which is very long. This is the third abstract which is very long. This is the third abstract which is very long. This is the third abstract which is very long. </item>
+        <item>This is the fourth abstract which is very long. This is the fourth abstract which is very long. This is the fourth abstract which is very long. This is the fourth abstract which is very long. This is the fourth abstract which is very long. This is the fourth abstract which is very long. </item>
+    </string-array>
+
+    <string name="term_string">    Using PocketConfidant and it’s products comes with a few rules which will be outlined in the Terms and Conditions page.
+        There are several rules that govern the relationship between you the user, and PocketConfidant.
+        These rules are important and define, among other things, important principles such as:
+    Basic rules — what you can and cannot do when using our service.
+    Content — how to access our content, what you can do with it, and what you can’t do with it.
+    Your data — what we can do with data you provide and how do we use it</string>
+
+</resources>
