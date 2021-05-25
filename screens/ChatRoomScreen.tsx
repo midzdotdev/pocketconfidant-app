@@ -2,7 +2,8 @@ import { useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { fetchChatRoom } from "../api";
-import { Text, View } from "../components/Themed";
+import ChatMessage from "../components/ChatMessage";
+import { View } from "../components/Themed";
 import { ChatRoom } from "../types";
 
 const ChatRoomScreen: React.FC = () => {
@@ -21,7 +22,7 @@ const ChatRoomScreen: React.FC = () => {
         <FlatList
           style={styles.messageList}
           data={chatRoom.messages}
-          renderItem={({ item }) => <Text>{item.body}</Text>}
+          renderItem={({ item }) => <ChatMessage message={item} />}
           keyExtractor={(chatRoom) => chatRoom.id}
         />
       )}
@@ -33,11 +34,9 @@ export default ChatRoomScreen;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     flex: 1,
-    flexDirection: "row",
-    borderColor: "#eee",
-    padding: 13,
+    paddingVertical: 21,
+    overflow: "scroll",
   },
   messageList: {},
 });
