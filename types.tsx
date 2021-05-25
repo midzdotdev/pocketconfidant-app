@@ -9,14 +9,34 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  Chats: undefined;
+  Resources: undefined;
 };
 
-export type TabOneParamList = {
-  TabOneScreen: undefined;
+export type ChatsParamList = {
+  ChatsScreen: undefined;
 };
 
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type ResourcesParamList = {
+  ResourcesScreen: undefined;
+};
+
+export type ChatRoom = {
+  id: string;
+  users: User[];
+  messages: Message[];
+};
+
+export type User = {
+  id: string;
+  avatarUrl: string;
+  forename: string;
+  surname: string;
+};
+
+export type Message = {
+  id: string;
+  author: User;
+  timestamp: number;
+  body: string;
 };
