@@ -1,5 +1,6 @@
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { ChatRoom } from "../types";
 import { Text, View } from "./Themed";
 
@@ -8,31 +9,42 @@ interface Props {
 }
 
 const ChatListItem: React.FC<Props> = ({ chatRoom }) => {
+  const navigator = useNavigation();
+
   const lastMessage = chatRoom.messages[chatRoom.messages.length - 1];
 
+  const onPress = () => {
+    navigator.navigate("ChatRoomScreen", {
+      chatRoomId: chatRoom.id,
+      name: chatRoom.users[1].forename,
+    });
+  };
+
   return (
-    <View style={style.container}>
-      <Image
-        source={{ uri: chatRoom.users[1].avatarUrl }}
-        style={style.image}
-      />
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={style.container}>
+        <Image
+          style={style.image}
+          source={{ uri: chatRoom.users[1].avatarUrl }}
+        />
 
-      <View style={style.rightContainer}>
-        <View style={style.upperContainer}>
-          <Text style={style.name}>
-            {chatRoom.users
-              .slice(1)
-              .map((x) => x.forename)
-              .join(", ")}
+        <View style={style.rightContainer}>
+          <View style={style.upperContainer}>
+            <Text style={style.name}>
+              {chatRoom.users
+                .slice(1)
+                .map((x) => x.forename)
+                .join(", ")}
+            </Text>
+            <Text style={style.timestamp}>3 minutes ago</Text>
+          </View>
+
+          <Text style={style.lastMessage} numberOfLines={2}>
+            {lastMessage.body}
           </Text>
-          <Text style={style.timestamp}>3 minutes ago</Text>
         </View>
-
-        <Text style={style.lastMessage} numberOfLines={2}>
-          {lastMessage.body}
-        </Text>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

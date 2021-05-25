@@ -14,6 +14,7 @@ import * as React from "react";
 import { ColorSchemeName, View } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
+import ChatRoomScreen from "../screens/ChatRoomScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
@@ -66,6 +67,13 @@ function RootNavigator() {
             </View>
           ),
         }}
+      />
+      <Stack.Screen
+        name="ChatRoomScreen"
+        component={ChatRoomScreen}
+        options={({ route }) => ({
+          title: route.params.name,
+        })}
       />
       <Stack.Screen
         name="NotFound"

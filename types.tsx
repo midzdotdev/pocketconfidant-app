@@ -5,6 +5,7 @@
 
 export type RootStackParamList = {
   Root: undefined;
+  ChatRoomScreen: ChatRoomScreenParamList;
   NotFound: undefined;
 };
 
@@ -19,6 +20,11 @@ export type ChatsParamList = {
 
 export type ResourcesParamList = {
   ResourcesScreen: undefined;
+};
+
+export type ChatRoomScreenParamList = {
+  name: string;
+  chatRoomId: string;
 };
 
 export type ChatRoom = {

@@ -4,6 +4,12 @@ export const fetchChatRooms = async (): Promise<ChatRoom[]> => {
   return chatRooms;
 };
 
+export const fetchChatRoom = async (
+  chatRoomId: string
+): Promise<ChatRoom | null> => {
+  return chatRooms.find((x) => x.id === chatRoomId) ?? null;
+};
+
 const users: User[] = [
   {
     id: "user1",
