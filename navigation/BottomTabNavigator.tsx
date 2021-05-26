@@ -65,7 +65,11 @@ const ChatsStack = createStackNavigator<ChatsParamList>();
 function ChatsNavigator() {
   return (
     <ChatsStack.Navigator>
-      <ChatsStack.Screen name="ChatsScreen" component={ChatsScreen} />
+      <ChatsStack.Screen
+        name="ChatsScreen"
+        component={ChatsScreen}
+        options={{ headerShown: false }}
+      />
     </ChatsStack.Navigator>
   );
 }
@@ -78,7 +82,7 @@ function ResourcesNavigator() {
       <ResourcesStack.Screen
         name="ResourcesScreen"
         component={ResourcesScreen}
-        options={{ headerTitle: "Resources" }}
+        options={{ headerShown: false }}
       />
     </ResourcesStack.Navigator>
   );
