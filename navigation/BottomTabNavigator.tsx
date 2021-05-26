@@ -25,14 +25,20 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Chats"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      tabBarOptions={{
+        activeTintColor: Colors[colorScheme].tint,
+        showLabel: false,
+      }}
     >
       <BottomTab.Screen
         name="Chats"
         component={ChatsNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="chatbox-outline" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "chatbox" : "chatbox-outline"}
+              color={color}
+            />
           ),
         }}
       />
@@ -40,8 +46,11 @@ export default function BottomTabNavigator() {
         name="Resources"
         component={ResourcesNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="documents-outline" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "documents" : "documents-outline"}
+              color={color}
+            />
           ),
         }}
       />
