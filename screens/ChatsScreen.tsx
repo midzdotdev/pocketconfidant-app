@@ -2,6 +2,7 @@ import * as React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { fetchChatRooms } from "../api";
 import ChatListItem from "../components/ChatListItem";
+import NewChatButton from "../components/NewChatButton";
 import { View } from "../components/Themed";
 import { ChatRoom } from "../types";
 
@@ -12,6 +13,10 @@ const ChatsScreen: React.FC = () => {
     fetchChatRooms().then((chatRooms) => setChatRooms(chatRooms));
   }, []);
 
+  const onNewChatPress = () => {
+    console.warn("new chat");
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -20,6 +25,10 @@ const ChatsScreen: React.FC = () => {
         renderItem={({ item }) => <ChatListItem chatRoom={item} />}
         keyExtractor={(chatRoom) => chatRoom.id}
       />
+
+      <View style={styles.newChatButton}>
+        <NewChatButton onPress={onNewChatPress} />
+      </View>
     </View>
   );
 };
@@ -32,16 +41,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
   chatRoomList: {
     width: "100%",
+  },
+  newChatButton: {
+    position: "absolute",
+    right: 20,
+    bottom: 20,
   },
 });

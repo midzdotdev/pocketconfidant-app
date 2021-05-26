@@ -46,3 +46,7 @@ export type Message = {
   timestamp: number;
   body: string;
 };
+
+export interface SendMessagePayload {
+  body: string;
+}

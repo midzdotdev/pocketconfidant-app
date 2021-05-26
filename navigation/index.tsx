@@ -73,6 +73,8 @@ function RootNavigator() {
         component={ChatRoomScreen}
         options={({ route }) => ({
           title: route.params.name,
+          headerTitleAlign: "center",
+          headerBackTitle: "Chats",
         })}
       />
       <Stack.Screen

@@ -2,9 +2,10 @@ import { useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { fetchChatRoom } from "../api";
+import ChatInput from "../components/ChatInput";
 import ChatMessage from "../components/ChatMessage";
 import { View } from "../components/Themed";
-import { ChatRoom } from "../types";
+import { ChatRoom, SendMessagePayload } from "../types";
 
 const ChatRoomScreen: React.FC = () => {
   const { params } = useRoute();
@@ -16,6 +17,10 @@ const ChatRoomScreen: React.FC = () => {
     fetchChatRoom(chatRoomId).then((chatRoom) => setChatRoom(chatRoom));
   });
 
+  const onSendMessage = ({ body }: SendMessagePayload) => {
+    console.warn(body);
+  };
+
   return (
     <View style={styles.container}>
       {chatRoom && (
@@ -26,6 +31,10 @@ const ChatRoomScreen: React.FC = () => {
           keyExtractor={(chatRoom) => chatRoom.id}
         />
       )}
+
+      <View style={styles.chatInput}>
+        <ChatInput onSendMessage={onSendMessage} />
+      </View>
     </View>
   );
 };
@@ -39,4 +48,5 @@ const styles = StyleSheet.create({
     overflow: "scroll",
   },
   messageList: {},
+  chatInput: {},
 });
