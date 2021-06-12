@@ -1,9 +1,15 @@
 import { useRoute } from "@react-navigation/native";
 import * as React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import {
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+} from "react-native";
 import ChatInput from "../components/ChatInput";
 import ChatMessage from "../components/ChatMessage";
-import { View } from "../components/Themed";
+import Colors from "../constants/Colors";
 import { useChat } from "../hooks/useChat";
 
 const ChatScreen: React.FC = () => {
@@ -13,31 +19,34 @@ const ChatScreen: React.FC = () => {
   const { chat, sendMessage } = useChat(chatId);
 
   return (
-    <View style={styles.container}>
-      {chat && (
-        <FlatList
-          style={styles.messageList}
-          data={chat.messages}
-          renderItem={({ item }) => <ChatMessage message={item} />}
-          keyExtractor={(chat) => chat.id}
-        />
-      )}
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+        style={styles.container}
+      >
+        {chat && (
+          <FlatList
+            data={chat.messages}
+            renderItem={({ item }) => <ChatMessage message={item} />}
+            keyExtractor={(chat) => chat.id}
+          />
+        )}
 
-      <View style={styles.chatInput}>
         <ChatInput onSendMessage={(body) => sendMessage(body)} />
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 export default ChatScreen;
 
 const styles = StyleSheet.create({
+  safeAreaContainer: {
+    flex: 1,
+    backgroundColor: Colors.light.background,
+  },
   container: {
     flex: 1,
-    paddingVertical: 21,
-    overflow: "scroll",
   },
-  messageList: {},
-  chatInput: {},
 });

@@ -29,10 +29,9 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
           onChangeText={(text) => setBody(text)}
         />
       </View>
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.sendContainer}>
-          <Ionicons style={styles.send} name="send" />
-        </View>
+
+      <TouchableOpacity style={styles.sendContainer} onPress={onPress}>
+        <Ionicons style={styles.send} name="send" />
       </TouchableOpacity>
     </View>
   );
@@ -43,20 +42,17 @@ export default ChatInput;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    marginBottom: 13,
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    padding: 13,
+    paddingHorizontal: 13,
+    paddingVertical: 8,
   },
   textboxContainer: {
     flexGrow: 1,
+    borderRadius: 13,
     borderColor: "#ccc",
     borderWidth: 1,
-    paddingVertical: 8,
-    paddingHorizontal: 13,
-    borderRadius: 21,
-    flex: 1,
+    padding: 5,
   },
   textbox: {
     maxHeight: 120,
@@ -69,6 +65,8 @@ const styles = StyleSheet.create({
   },
   send: {
     fontSize: 21,
+    height: 21,
+    width: 21,
     color: "white",
   },
 });
