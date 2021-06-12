@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "react-query";
-import { createTopicChat, fetchChatRooms } from "../api";
+import { createTopicChat, fetchChats } from "../api";
 
 export const useChats = () => {
-  const { data: chats, refetch } = useQuery("chats", () => fetchChatRooms(), {
+  const { data: chats, refetch } = useQuery("chats", () => fetchChats(), {
     initialData: [],
   });
 

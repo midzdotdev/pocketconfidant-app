@@ -3,7 +3,7 @@ import * as React from "react";
 import { useCallback } from "react";
 import { Image, StyleSheet, TouchableHighlight } from "react-native";
 import { botUser, Chat } from "../api";
-import { relativeTime } from "../utils";
+import { useRelativeTime } from "../hooks/useRelativeTime";
 import { Text, View } from "./Themed";
 
 interface Props {
@@ -15,9 +15,11 @@ const ChatListItem: React.FC<Props> = ({ chat }) => {
 
   const lastMessage = chat.messages[chat.messages.length - 1];
 
+  const timeAgo = useRelativeTime(lastMessage?.timestamp);
+
   const onPress = useCallback(() => {
-    navigator.navigate("ChatRoomScreen", {
-      chatRoomId: chat.id,
+    navigator.navigate("ChatScreen", {
+      chatId: chat.id,
       name: chat.topic,
     });
   }, []);
@@ -30,9 +32,7 @@ const ChatListItem: React.FC<Props> = ({ chat }) => {
         <View style={style.rightContainer}>
           <View style={style.upperContainer}>
             <Text style={style.name}>{chat.topic}</Text>
-            <Text style={style.timestamp}>
-              {lastMessage ? relativeTime(lastMessage.timestamp) : "new"}
-            </Text>
+            <Text style={style.timestamp}>{timeAgo ? timeAgo : "new"}</Text>
           </View>
 
           <Text style={style.lastMessage} numberOfLines={2}>

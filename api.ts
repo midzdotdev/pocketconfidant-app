@@ -20,7 +20,7 @@ export interface Message {
   body: string;
 }
 
-export const fetchChatRooms = async (): Promise<Chat[]> => {
+export const fetchChats = async (): Promise<Chat[]> => {
   return chats;
 };
 
@@ -36,10 +36,21 @@ export const createTopicChat = async (topic: string): Promise<Chat> => {
   return chat;
 };
 
-export const fetchChatRoom = async (
-  chatRoomId: string
-): Promise<Chat | null> => {
-  return chats.find((x) => x.id === chatRoomId) ?? null;
+export const fetchChat = async (chatId: string): Promise<Chat | null> => {
+  return chats.find((x) => x.id === chatId) ?? null;
+};
+
+export const sendChatMessage = async (
+  chatId: string,
+  message: Message
+): Promise<void> => {
+  const chat = chats.find((x) => x.id === chatId);
+
+  if (!chat) {
+    throw new Error("Cannot send message to an undefined chat");
+  }
+
+  chat.messages.push(message);
 };
 
 export const botUser: User = {

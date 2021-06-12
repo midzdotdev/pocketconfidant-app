@@ -2,11 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import * as React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { SendMessagePayload } from "../types";
 import { View } from "./Themed";
 
 interface ChatInputProps {
-  onSendMessage: (payload: SendMessagePayload) => void;
+  onSendMessage: (body: string) => void;
 }
 
 const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
@@ -14,7 +13,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
 
   const onPress = () => {
     if (body) {
-      onSendMessage({ body });
+      onSendMessage(body);
       setBody("");
     }
   };

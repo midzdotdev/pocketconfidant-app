@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
-import { Message } from "../types";
+import { me, Message } from "../api";
+import { useRelativeTime } from "../hooks/useRelativeTime";
 import { Text, View } from "./Themed";
 
 interface ChatMessageProps {
@@ -9,8 +10,10 @@ interface ChatMessageProps {
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isMine = React.useMemo(() => {
-    return message.author.id === "user1";
+    return message.author.id === me.id;
   }, [message]);
+
+  const timeAgo = useRelativeTime(message.timestamp);
 
   return (
     <View
@@ -29,7 +32,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         <Text style={styles.body}>{message.body}</Text>
       </View>
 
-      <Text style={styles.time}>3 mins</Text>
+      <Text style={styles.time}>{timeAgo}</Text>
     </View>
   );
 };

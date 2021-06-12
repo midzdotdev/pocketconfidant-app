@@ -14,7 +14,7 @@ import * as React from "react";
 import { ColorSchemeName, View } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import ChatRoomScreen from "../screens/ChatRoomScreen";
+import ChatScreen from "../screens/ChatScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
@@ -69,8 +69,8 @@ function RootNavigator() {
         }}
       />
       <Stack.Screen
-        name="ChatRoomScreen"
-        component={ChatRoomScreen}
+        name="ChatScreen"
+        component={ChatScreen}
         options={({ route }) => ({
           title: route.params.name,
           headerTitleAlign: "center",

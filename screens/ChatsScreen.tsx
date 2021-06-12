@@ -13,8 +13,8 @@ const ChatsScreen: React.FC = () => {
 
   const onNewChatPress = () => {
     createTopic("test topic").then((chat) => {
-      navigator.navigate("ChatRoomScreen", {
-        chatRoomId: chat.id,
+      navigator.navigate("ChatScreen", {
+        chatId: chat.id,
         name: chat.topic,
       });
     });
@@ -23,10 +23,10 @@ const ChatsScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        style={styles.chatRoomList}
+        style={styles.chatsList}
         data={chats}
         renderItem={({ item }) => <ChatListItem chat={item} />}
-        keyExtractor={(chatRoom) => chatRoom.id}
+        keyExtractor={(chat) => chat.id}
       />
 
       <View style={styles.newChatButton}>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  chatRoomList: {
+  chatsList: {
     width: "100%",
   },
   newChatButton: {
