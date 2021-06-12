@@ -1,50 +1,46 @@
 import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { Image, StyleSheet, TouchableWithoutFeedback } from "react-native";
-import { ChatRoom } from "../types";
+import { useCallback } from "react";
+import { Image, StyleSheet, TouchableHighlight } from "react-native";
+import { botUser, Chat } from "../api";
+import { relativeTime } from "../utils";
 import { Text, View } from "./Themed";
 
 interface Props {
-  chatRoom: ChatRoom;
+  chat: Chat;
 }
 
-const ChatListItem: React.FC<Props> = ({ chatRoom }) => {
+const ChatListItem: React.FC<Props> = ({ chat }) => {
   const navigator = useNavigation();
 
-  const lastMessage = chatRoom.messages[chatRoom.messages.length - 1];
+  const lastMessage = chat.messages[chat.messages.length - 1];
 
-  const onPress = () => {
+  const onPress = useCallback(() => {
     navigator.navigate("ChatRoomScreen", {
-      chatRoomId: chatRoom.id,
-      name: chatRoom.users[1].forename,
+      chatRoomId: chat.id,
+      name: chat.topic,
     });
-  };
+  }, []);
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableHighlight onPress={onPress}>
       <View style={style.container}>
-        <Image
-          style={style.image}
-          source={{ uri: chatRoom.users[1].avatarUrl }}
-        />
+        <Image style={style.image} source={{ uri: botUser.avatarUrl }} />
 
         <View style={style.rightContainer}>
           <View style={style.upperContainer}>
-            <Text style={style.name}>
-              {chatRoom.users
-                .slice(1)
-                .map((x) => x.forename)
-                .join(", ")}
+            <Text style={style.name}>{chat.topic}</Text>
+            <Text style={style.timestamp}>
+              {lastMessage ? relativeTime(lastMessage.timestamp) : "new"}
             </Text>
-            <Text style={style.timestamp}>3 minutes ago</Text>
           </View>
 
           <Text style={style.lastMessage} numberOfLines={2}>
-            {lastMessage.body}
+            {lastMessage && lastMessage.body}
           </Text>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableHighlight>
   );
 };
 

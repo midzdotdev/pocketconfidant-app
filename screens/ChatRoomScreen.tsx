@@ -1,23 +1,22 @@
 import { useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { FlatList, StyleSheet } from "react-native";
-import { fetchChatRoom } from "../api";
+import { Chat, fetchChatRoom } from "../api";
 import ChatInput from "../components/ChatInput";
 import ChatMessage from "../components/ChatMessage";
 import { View } from "../components/Themed";
-import { ChatRoom, SendMessagePayload } from "../types";
 
 const ChatRoomScreen: React.FC = () => {
   const { params } = useRoute();
   const { chatRoomId } = params as any;
 
-  const [chatRoom, setChatRoom] = React.useState<ChatRoom | null>(null);
+  const [chatRoom, setChatRoom] = React.useState<Chat | null>(null);
 
   React.useEffect(() => {
     fetchChatRoom(chatRoomId).then((chatRoom) => setChatRoom(chatRoom));
   });
 
-  const onSendMessage = ({ body }: SendMessagePayload) => {
+  const onSendMessage = (body: string) => {
     console.warn(body);
   };
 

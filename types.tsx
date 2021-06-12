@@ -26,27 +26,3 @@ export type ChatRoomScreenParamList = {
   name: string;
   chatRoomId: string;
 };
-
-export type ChatRoom = {
-  id: string;
-  users: User[];
-  messages: Message[];
-};
-
-export type User = {
-  id: string;
-  avatarUrl: string;
-  forename: string;
-  surname: string;
-};
-
-export type Message = {
-  id: string;
-  author: User;
-  timestamp: number;
-  body: string;
-};
-
-export interface SendMessagePayload {
-  body: string;
-}

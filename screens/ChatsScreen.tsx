@@ -1,28 +1,31 @@
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import { FlatList, StyleSheet } from "react-native";
-import { fetchChatRooms } from "../api";
 import ChatListItem from "../components/ChatListItem";
 import NewChatButton from "../components/NewChatButton";
 import { View } from "../components/Themed";
-import { ChatRoom } from "../types";
+import { useChats } from "../hooks/useChats";
 
 const ChatsScreen: React.FC = () => {
-  const [chatRooms, setChatRooms] = React.useState<ChatRoom[]>([]);
+  const navigator = useNavigation();
 
-  React.useEffect(() => {
-    fetchChatRooms().then((chatRooms) => setChatRooms(chatRooms));
-  }, []);
+  const { chats, createTopic } = useChats();
 
   const onNewChatPress = () => {
-    console.warn("new chat");
+    createTopic("test topic").then((chat) => {
+      navigator.navigate("ChatRoomScreen", {
+        chatRoomId: chat.id,
+        name: chat.topic,
+      });
+    });
   };
 
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.chatRoomList}
-        data={chatRooms}
-        renderItem={({ item }) => <ChatListItem chatRoom={item} />}
+        data={chats}
+        renderItem={({ item }) => <ChatListItem chat={item} />}
         keyExtractor={(chatRoom) => chatRoom.id}
       />
 
@@ -48,5 +51,46 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 20,
     bottom: 20,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });

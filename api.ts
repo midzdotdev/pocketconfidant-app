@@ -1,53 +1,60 @@
-import { ChatRoom, User } from "./types";
+import { nanoid } from "nanoid/non-secure";
 
-export const fetchChatRooms = async (): Promise<ChatRoom[]> => {
-  return chatRooms;
+export interface Chat {
+  id: string;
+  topic: string;
+  messages: Message[];
+}
+
+export interface User {
+  id: string;
+  avatarUrl: string;
+  forename: string;
+  surname: string;
+}
+
+export interface Message {
+  id: string;
+  author: User;
+  timestamp: number;
+  body: string;
+}
+
+export const fetchChatRooms = async (): Promise<Chat[]> => {
+  return chats;
+};
+
+export const createTopicChat = async (topic: string): Promise<Chat> => {
+  const chat: Chat = {
+    id: nanoid(),
+    topic,
+    messages: [],
+  };
+
+  chats.push(chat);
+
+  return chat;
 };
 
 export const fetchChatRoom = async (
   chatRoomId: string
-): Promise<ChatRoom | null> => {
-  return chatRooms.find((x) => x.id === chatRoomId) ?? null;
+): Promise<Chat | null> => {
+  return chats.find((x) => x.id === chatRoomId) ?? null;
 };
 
-const users: User[] = [
-  {
-    id: "user1",
-    forename: "James",
-    surname: "Middleton",
-    avatarUrl: "https://i.pravatar.cc/150?img=5",
-  },
-  {
-    id: "user2",
-    forename: "Olivier",
-    surname: "Malafronte",
-    avatarUrl: "https://i.pravatar.cc/150?img=10",
-  },
-  {
-    id: "user3",
-    forename: "Francesco",
-    surname: "Zangaro",
-    avatarUrl: "https://i.pravatar.cc/150?img=15",
-  },
-];
+export const botUser: User = {
+  id: "bot",
+  avatarUrl:
+    "https://pbs.twimg.com/profile_images/1058706213129474048/0Z-kRgbx_400x400.jpg",
+  forename: "",
+  surname: "",
+};
 
-const chatRooms: ChatRoom[] = [
-  {
-    id: "1",
-    users: [users[0], users[1]],
-    messages: [
-      {
-        id: "msg1",
-        author: users[0],
-        body: "This is a test",
-        timestamp: Date.now() - 3600 * 1000,
-      },
-      {
-        id: "msg2",
-        author: users[1],
-        body: "It works!",
-        timestamp: Date.now() - 60 * 1000,
-      },
-    ],
-  },
-];
+export const me: User = {
+  id: "me",
+  forename: "James",
+  surname: "Middleton",
+  avatarUrl: "https://i.pravatar.cc/150?img=5",
+};
+
+const chats: Chat[] = [];
